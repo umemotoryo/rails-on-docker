@@ -1,0 +1,44 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.6
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql-data:/var/lib/mysql
+  redis:
+    image: redis:alpine
+  web:
+    tty: true
+    stdin_open: true
+    build: .
+    command: bash -c "(rm tmp/pids/server.pid || true) && (bundle check || bundle install) && bundle exec rails s -b 0"
+    volumes:
+      - .:/app
+      - gems:/gems
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+      - redis
+    environment:
+      DB_PORT: 3306
+      DB_NAME: app_develop
+      TEST_DB_NAME: app_test
+      DB_PASS: password
+      DB_USER_NAME: root
+      DB_HOST: db
+      REDIS_HOST: 'redis'
+  webpack:
+    build: .
+    command: bash -c "yarn install && (bundle check || bundle install) && bundle exec bin/webpack-dev-server"
+    volumes:
+      - .:/app
+      - gems:/gems
+    ports:
+      - 8080:8080
+volumes:
+  gems:
+  mysql-data:
+  tmp:

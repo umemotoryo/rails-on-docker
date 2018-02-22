@@ -1,0 +1,19 @@
+{
+  "name": "rails-on-docker",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "^3.2.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fs": "^0.0.1-security",
+    "glob": "^7.1.2",
+    "js-yaml": "^3.10.0",
+    "path": "^0.12.7",
+    "path-complete-extname": "^0.1.0",
+    "process": "^0.11.10",
+    "webpack-manifest-plugin": "^1.3.2",
+    "webpack-merge": "^4.1.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.1"
+  }
+}
