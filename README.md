@@ -1,26 +1,34 @@
-# README
+# Rails On Docker
+## Versions
+- ruby: 2.4.1
+- mysql: 5.6
+- redis: latest
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Build
+```
+docker-compose up
+docker-compose run --rm web bash -c "bundle exec rake db:create && bundle exec rake db:migrate"
+```
 
-Things you may want to cover:
+## Add yarn package
+```
+docker-compose run --rm webpack yarn add [PACKAGE]
+```
 
-* Ruby version
+## Bundle install
+```
+docker-compose down
+docker-compose up
+# or
+docker-compose restart
+```
 
-* System dependencies
+## Using `binding.pry`
+```
+docker-compose up -d && docker attach [WEB_CONTAINER_NAME]
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# rails-on-docker
-- hot reloadできない
+## Show webpacker logs
+```
+docker-compose logs -f --tail=20 webpack
+```
