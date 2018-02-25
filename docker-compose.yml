@@ -15,7 +15,7 @@ services:
     build: .
     command: bash -c "(rm tmp/pids/server.pid || true) && (bundle check || bundle install) && bundle exec rails s -b 0"
     volumes:
-      - .:/app
+      - .:/app:cached
       - gems:/gems
     ports:
       - 3000:3000
@@ -34,7 +34,8 @@ services:
     build: .
     command: bash -c "yarn install && (bundle check || bundle install) && bundle exec bin/webpack-dev-server"
     volumes:
-      - .:/app
+      - .:/app:cached
+      - tmp:/app/tmp
       - gems:/gems
     ports:
       - 8080:8080
